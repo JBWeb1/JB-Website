@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JB Websites | Modern Website Store</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: linear-gradient(-45deg, #111, #1a1a1a, #222, #333);
+      background-size: 400% 400%;
+      animation: bgShift 10s ease infinite;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    @keyframes bgShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    header {
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+    }
+
+    nav a {
+      margin: 0 15px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #f39c12;
+    }
+
+    .hero {
+      background: transparent;
+      color: #fff;
+      text-align: center;
+      padding: 120px 20px;
+    }
+
+    .hero h2 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    .hero button {
+      background: #f39c12;
+      color: #fff;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 30px;
+      margin-top: 25px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .hero button:hover {
+      background: #fff;
+      color: #111;
+    }
+
+    .section {
+      padding: 80px 10%;
+      text-align: center;
+    }
+
+    .section h2 {
+      font-size: 2rem;
+      margin-bottom: 40px;
+      color: #f39c12;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .gallery img {
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    .store {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .product {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .product:hover {
+      transform: translateY(-8px);
+    }
+
+    .product img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .product-info {
+      padding: 20px;
+      text-align: left;
+    }
+
+    .product-info h3 {
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+      color: #fff;
+    }
+
+    .product-info p {
+      font-size: 0.95rem;
+      color: #ccc;
+      margin-bottom: 10px;
+    }
+
+    .product-info button {
+      background: #f39c12;
+      color: #111;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .product-info button:hover {
+      background: #fff;
+    }
+
+    footer {
+      background: rgba(0, 0, 0, 0.7);
+      color: #ccc;
+      text-align: center;
+      padding: 40px 20px;
+      margin-top: 80px;
+    }
+
+    footer p {
+      margin-top: 10px;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>JB Websites</h1>
+    <nav>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="custom.html">Custom Websites</a>
+    </nav>
+  </header>
+
+  <section id="home" class="hero">
+    <h2>Modern Websites. Professional Design.</h2>
+    <p>Get your website built fast, clean, and affordable.</p>
+    <button onclick="window.location.href='store.html'">Shop Beginner Websites</button>
+  </section>
+
+  <section id="portfolio" class="section">
+    <h2>Showcase of Our Work</h2>
+    <div class="gallery">
+      <img src="b3.jpg" alt="Website Example">
+      <img src="b1.jpg" alt="Website Example">
+      <img src="Blossom.jpg" alt="Website Example">
+      <img src="b2.jfif" alt="Website Example">
+    </div>
+  </section>
+
+  <section id="store" class="section">
+    <h2>Store — Beginner Websites</h2>
+    <div class="store">
+      <div class="product">
+        <img src="b4.jpg" alt="Starter Website">
+        <div class="product-info">
+          <h3>Starter Website</h3>
+          <p>Perfect for small businesses or personal portfolios.</p>
+          <button>Buy for $50</button>
+        </div>
+      </div>
+
+      <div class="product">
+        <img src="b5.png" alt="Business Website">
+        <div class="product-info">
+          <h3>Business Website</h3>
+          <p>Get a sleek, professional 5-page design.</p>
+          <button>Buy for $100</button>
+        </div>
+      </div>
+
+      <div class="product">
+        <img src="b6.jpg" alt="E-commerce Website">
+        <div class="product-info">
+          <h3>eCommerce Website</h3>
+          <p>Launch your online store with modern design.</p>
+          <button>Buy for $150</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <h2>Contact JB Websites</h2>
+    <p>Email: jbwebsites@gmail.com | WhatsApp: +27 123 456 7890</p>
+    <p>© 2025 JB Websites. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

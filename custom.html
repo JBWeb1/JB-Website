@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Custom Website Builder | JB Websites</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background: linear-gradient(135deg,#0f0f0f,#1a1a1a); color:#fff; overflow-x:hidden;}
+header{display:flex;justify-content:space-between;align-items:center;padding:25px 60px;background: rgba(0,0,0,0.5);backdrop-filter: blur(10px);border-bottom:1px solid #222;}
+header h1{color:#00ffff;font-size:2rem;font-weight:600;}
+nav a{color:#fff;margin:0 15px;text-decoration:none;font-weight:500;transition:0.3s;}
+nav a:hover{color:#00ffff;}
+.container{max-width:1200px;margin:60px auto;padding:40px; display:grid; grid-template-columns:1fr 1fr; gap:40px;}
+.form-panel{background: rgba(255,255,255,0.05); backdrop-filter:blur(10px); padding:30px; border-radius:20px; box-shadow:0 0 40px rgba(0,255,255,0.2);}
+form{display:grid; gap:20px;}
+label{font-weight:500; margin-bottom:6px; display:block;}
+input, select, textarea{width:100%; padding:12px 15px; border-radius:10px; border:none; background:#111; color:#fff; font-size:1rem; outline:none; transition:0.3s;}
+input:focus, select:focus, textarea:focus{background:#222; transform:scale(1.02);}
+.features label{display:flex;align-items:center;cursor:pointer; transition:0.3s;}
+.features input[type="checkbox"]{margin-right:10px; transform:scale(1.2);}
+.features label:hover{color:#00ffff;}
+button{padding:15px 30px;border:none;border-radius:30px;background:#00ffff;color:#111;font-weight:600;cursor:pointer;transition:0.3s;}
+button:hover{background:#fff;}
+.preview-panel{background: rgba(255,255,255,0.05); backdrop-filter:blur(15px); border-radius:20px; padding:20px; box-shadow:0 0 60px rgba(0,255,255,0.2); overflow:auto; max-height:90vh; scroll-behavior:smooth; position:relative;}
+.preview-card{background:#111; border-radius:15px; display:flex; flex-direction:column; transition:0.5s; font-size:14px; padding-bottom:50px;}
+.mockup-header{padding:15px;text-align:center;font-weight:600;font-size:1.2rem;border-bottom:1px solid #222;}
+.mockup-nav{display:flex; justify-content:center; gap:15px; padding:10px; border-bottom:1px solid #222; cursor:pointer;}
+.mockup-nav span{color:#00ffff; font-weight:500; cursor:pointer; transition:0.3s;}
+.mockup-nav span:hover{color:#fff;}
+.mockup-hero{padding:30px;text-align:center; min-height:120px; display:flex; flex-direction:column; justify-content:center; align-items:center; transition:0.4s; font-weight:500; border-bottom:1px solid #222; border-top:1px solid #222; cursor:grab;}
+.mockup-hero h2{margin-bottom:10px;}
+.mockup-hero p{margin-bottom:10px;}
+.mockup-hero button{padding:10px 20px; border:none; border-radius:20px; background:#00ffff; color:#111; font-weight:600; cursor:pointer; transition:0.3s;}
+.mockup-hero button:hover{background:#fff;}
+.mockup-section{padding:20px; display:grid; grid-template-columns:repeat(auto-fit,minmax(100px,1fr)); gap:10px; opacity:0; transform:translateY(20px); transition:0.6s; cursor:grab;}
+.mockup-section.visible{opacity:1; transform:translateY(0);}
+.mockup-section div{background:#222; padding:10px; border-radius:10px; text-align:center; transition:0.3s;}
+.mockup-section div:hover{transform:scale(1.05);}
+.bg-circle{position:fixed;border-radius:50%;background: radial-gradient(circle,#00ffff,transparent 60%);filter:blur(150px);opacity:0.2; z-index:-1; animation: float 6s ease-in-out infinite alternate;}
+.bg-circle.one{width:400px;height:400px;top:-100px;right:-100px;}
+.bg-circle.two{width:400px;height:400px;bottom:-100px;left:-100px; animation-delay:3s;}
+@keyframes float{from{transform:translateY(0);} to{transform:translateY(25px);}}
+footer{text-align:center;padding:20px;color:#888;}
+
+/* Domain Bubble */
+#domainBubble{position:fixed;top:50%;left:20px;transform:translateY(-50%);background:#00ffff;color:#111;padding:15px 20px;border-radius:50px;font-weight:600;cursor:default;z-index:1000;box-shadow:0 0 20px #00ffff;transition:0.3s;}
+#domainBubble:hover{transform:translateY(-50%) scale(1.05);}
+
+/* Live Chat Bubble */
+#liveChat{position:fixed;bottom:20px;right:20px;background:#00ffff;color:#111;padding:15px 20px;border-radius:50px;font-weight:600;cursor:pointer;z-index:10001;box-shadow:0 0 20px #00ffff;transition:0.3s;}
+#liveChat:hover{transform:scale(1.05);}
+
+/* Chat Window */
+#chatWindow{display:none;position:fixed;bottom:70px;right:20px;width:300px;background:#111;border-radius:15px;box-shadow:0 0 20px rgba(0,255,255,0.3);z-index:10001;overflow:hidden;}
+#chatWindow .chatHeader{background:#00ffff;color:#111;padding:10px;font-weight:600;display:flex;justify-content:space-between;align-items:center;}
+#chatWindow #chatMessages{padding:10px;height:200px;overflow-y:auto;}
+#chatWindow #chatInputBox{display:flex;border-top:1px solid #222;}
+#chatWindow #chatInputBox input{flex:1;padding:10px;border:none;background:#111;color:#fff;outline:none;}
+#chatWindow #chatInputBox button{background:#00ffff;color:#111;border:none;padding:0 15px;cursor:pointer;}
+</style>
+</head>
+<body>
+<div class="bg-circle one"></div>
+<div class="bg-circle two"></div>
+
+<header>
+<h1>JB Websites</h1>
+<nav>
+<a href="JB web.html">Home</a>
+<a href="portfolio.html">Portfolio</a>
+<a href="store.html">Store</a>
+</nav>
+</header>
+
+<!-- Domain Bubble -->
+<div id="domainBubble">WebsiteName.com</div>
+
+<!-- Live Chat Bubble -->
+<div id="liveChat">Live Chat</div>
+
+<!-- Chat Window -->
+<div id="chatWindow">
+  <div class="chatHeader">
+    Chat <span id="closeChat" style="cursor:pointer;">✖</span>
+  </div>
+  <div id="chatMessages"></div>
+  <div id="chatInputBox">
+    <input type="text" id="chatInput" placeholder="Type a message...">
+    <button id="chatSend">Send</button>
+  </div>
+</div>
+
+<div class="container">
+<div class="form-panel">
+<h2>Customize Your Website</h2>
+<form id="customForm">
+<label>Website Name:</label>
+<input type="text" id="siteName" placeholder="e.g. JB Auto Repairs">
+
+<div class="grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+<div>
+<label>Website Type:</label>
+<select id="siteType">
+<option>Business Website</option>
+<option>Portfolio Website</option>
+<option>E-Commerce Store</option>
+<option>Landing Page</option>
+<option>Booking/Service Site</option>
+</select>
+</div>
+<div>
+<label>Design Style:</label>
+<select id="siteStyle">
+<option>Modern</option>
+<option>Minimal</option>
+<option>Professional</option>
+<option>Creative</option>
+<option>Elegant</option>
+</select>
+</div>
+</div>
+
+<label>Accent Color:</label>
+<input type="color" id="accentColor" value="#00ffff">
+
+<div class="features">
+<label><input type="checkbox" value="Contact Form"> Contact Form</label>
+<label><input type="checkbox" value="Blog Section"> Blog Section</label>
+<label><input type="checkbox" value="Online Store"> Online Store</label>
+<label><input type="checkbox" value="Live Chat"> Live Chat</label>
+<label><input type="checkbox" value="SEO Setup"> SEO Setup</label>
+<label><input type="checkbox" value="Animations"> Animations</label>
+</div>
+
+<label>Extra Notes:</label>
+<textarea id="extraNotes" rows="3" placeholder="Colors, layout preferences..."></textarea>
+
+<button type="button" onclick="sendCustomRequest()">Send Request</button>
+</form>
+</div>
+
+<div class="preview-panel">
+<h2>Live Website Preview</h2>
+<div class="preview-card" id="previewCard">
+<div class="mockup-header" id="mockupHeader">Website Name.com</div>
+<div class="mockup-nav" id="mockupNav">
+<span data-section="hero">Home</span>
+<span data-section="about">About</span>
+<span data-section="services">Services</span>
+<span data-section="portfolio">Portfolio</span>
+<span data-section="blog">Blog</span>
+<span data-section="contact">Contact</span>
+</div>
+<div class="mockup-hero" id="mockupHero" draggable="true">
+<h2>Hero Section</h2>
+<p>Welcome to your website!</p>
+<button>Call To Action</button>
+</div>
+<div class="mockup-section" id="mockupAbout" draggable="true"></div>
+<div class="mockup-section" id="mockupServices" draggable="true"></div>
+<div class="mockup-section" id="mockupPortfolio" draggable="true"></div>
+<div class="mockup-section" id="mockupBlog" draggable="true"></div>
+<div class="mockup-section" id="mockupContact" draggable="true"></div>
+<div class="mockup-features" id="mockupFeatures"></div>
+</div>
+</div>
+</div>
+
+<footer>
+<p>© 2025 JB Websites — Crafted with Passion and Code 💻</p>
+</footer>
+
+<script>
+// Main elements
+const form=document.getElementById('customForm');
+const headerEl=document.getElementById('mockupHeader');
+const heroEl=document.getElementById('mockupHero');
+const featuresEl=document.getElementById('mockupFeatures');
+const aboutSection=document.getElementById('mockupAbout');
+const servicesSection=document.getElementById('mockupServices');
+const portfolioSection=document.getElementById('mockupPortfolio');
+const blogSection=document.getElementById('mockupBlog');
+const contactSection=document.getElementById('mockupContact');
+const navLinks=document.querySelectorAll("#mockupNav span");
+const accentColorEl=document.getElementById('accentColor');
+const domainBubble = document.getElementById('domainBubble');
+
+form.addEventListener('input',updateMockup);
+
+function updateMockup(){
+  const name=document.getElementById('siteName').value||"Website Name";
+  const type=document.getElementById('siteType').value;
+  const style=document.getElementById('siteStyle').value;
+  const features=Array.from(form.querySelectorAll('input[type="checkbox"]:checked')).map(cb=>cb.value);
+  const accentColor=accentColorEl.value;
+
+  // Domain Bubble
+  let domain = name.replace(/\s+/g,'').toLowerCase();
+  if(type==="E-Commerce Store") domain += ".store.com"; else domain += ".com";
+  headerEl.textContent = domain;
+  domainBubble.textContent = domain;
+
+  // Hero Section
+  heroEl.querySelector('h2').textContent=type==="E-Commerce Store"?"Shop Hero Section":type==="Portfolio Website"?"Portfolio Hero Section":"Welcome Hero Section";
+  heroEl.querySelector('p').textContent=`This is your ${type.toLowerCase()}.`;
+  heroEl.style.backgroundColor=accentColor + "33";
+  heroEl.querySelector('button').style.backgroundColor=accentColor;
+
+  // Features
+  featuresEl.innerHTML="";
+  features.forEach(f=>{
+    const span=document.createElement("span");
+    span.textContent=f;
+    span.style.color = accentColor;
+    featuresEl.appendChild(span);
+  });
+
+  // Sections
+  const sections = ["About Us","Our Team","Mission"];
+  aboutSection.innerHTML=""; sections.forEach(f=>{ const div=document.createElement("div"); div.textContent=f; div.style.backgroundColor=accentColor+"11"; aboutSection.appendChild(div); });
+  aboutSection.classList.add("visible");
+
+  servicesSection.innerHTML=""; ["Service 1","Service 2","Service 3"].forEach(f=>{ const div=document.createElement("div"); div.textContent=f; div.style.backgroundColor=accentColor+"11"; servicesSection.appendChild(div); });
+  servicesSection.classList.add("visible");
+
+  portfolioSection.innerHTML="";
+  if(type==="Portfolio Website"||type==="E-Commerce Store"){ for(let i=1;i<=4;i++){ const div=document.createElement("div"); div.textContent=type==="Portfolio Website"?"Project "+i:"Product "+i; div.style.backgroundColor=accentColor+"11"; portfolioSection.appendChild(div); } portfolioSection.classList.add("visible"); } else {portfolioSection.classList.remove("visible");}
+
+  blogSection.innerHTML="";
+  if(features.includes("Blog Section")){ for(let i=1;i<=3;i++){ const div=document.createElement("div"); div.textContent="Blog Post "+i; div.style.backgroundColor=accentColor+"11"; blogSection.appendChild(div); } blogSection.classList.add("visible"); } else {blogSection.classList.remove("visible");}
+
+  contactSection.innerHTML="";
+  if(features.includes("Contact Form")||features.includes("Live Chat")){ const div=document.createElement("div"); div.textContent="Contact Form / Live Chat"; div.style.backgroundColor=accentColor+"11"; contactSection.appendChild(div); contactSection.classList.add("visible"); } else {contactSection.classList.remove("visible");}
+}
+
+// Navigation scrolling inside preview
+navLinks.forEach(link=>{ link.addEventListener('click',()=>{ const sectionId=link.getAttribute('data-section'); const section=document.getElementById("mockup"+capitalize(sectionId)); if(section){ section.scrollIntoView({behavior:"smooth"}); } }); });
+function capitalize(s){return s.charAt(0).toUpperCase()+s.slice(1);}
+
+// Send Request
+function sendCustomRequest(){
+  const name=document.getElementById('siteName').value;
+  const type=document.getElementById('siteType').value;
+  const style=document.getElementById('siteStyle').value;
+  const features=Array.from(form.querySelectorAll('input[type="checkbox"]:checked')).map(cb=>cb.value).join(', ')||'None';
+  const notes=document.getElementById('extraNotes').value;
+  const message=`🧠 Custom Website Request:\nName: ${name}\nType: ${type}\nStyle: ${style}\nFeatures: ${features}\nNotes: ${notes}`;
+  const whatsappUrl=`https://wa.me/27XXXXXXXXX?text=${encodeURIComponent(message)}`;
+  window.open(whatsappUrl,"_blank");
+}
+
+// Drag and Drop for Sections
+const draggableSections = document.querySelectorAll('.mockup-section, .mockup-hero');
+draggableSections.forEach(section=>{
+  section.addEventListener('dragstart', dragStart);
+});
+let dragSrcEl = null;
+function dragStart(e){
+  dragSrcEl = this;
+  e.dataTransfer.effectAllowed = 'move';
+}
+draggableSections.forEach(section=>{
+  section.addEventListener('dragover', dragOver);
+  section.addEventListener('drop', dropSection);
+});
+function dragOver(e){ e.preventDefault(); e.dataTransfer.dropEffect = 'move'; }
+function dropSection(e){
+  e.preventDefault();
+  if(dragSrcEl !== this){
+    const parent = this.parentNode;
+    parent.insertBefore(dragSrcEl, this.nextSibling);
+  }
+}
+
+// Live Chat functionality
+const liveChatBtn = document.getElementById('liveChat');
+const chatWindow = document.getElementById('chatWindow');
+const chatClose = document.getElementById('closeChat');
+const chatMessages = document.getElementById('chatMessages');
+const chatInput = document.getElementById('chatInput');
+const chatSend = document.getElementById('chatSend');
+
+liveChatBtn.addEventListener('click', ()=>{ chatWindow.style.display = 'block'; });
+chatClose.addEventListener('click', ()=>{ chatWindow.style.display = 'none'; });
+
+function addMessage(msg, from='user'){
+  const div = document.createElement('div');
+  div.textContent = msg;
+  div.style.background = from==='user' ? '#00ffff33' : '#222';
+  div.style.color = '#fff';
+  div.style.padding = '8px 10px';
+  div.style.marginBottom = '5px';
+  div.style.borderRadius = '10px';
+  div.style.wordBreak = 'break-word';
+  chatMessages.appendChild(div);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+chatSend.addEventListener('click', ()=>{ sendChat(); });
+chatInput.addEventListener('keydown', e=>{ if(e.key==='Enter'){ sendChat(); } });
+
+function sendChat(){
+  const msg = chatInput.value.trim();
+  if(!msg) return;
+  addMessage(msg,'user');
+  chatInput.value = '';
+  setTimeout(()=>{ addMessage("Thank you! We'll get back to you.","bot"); },500);
+}
+
+updateMockup();
+</script>
+</body>
+</html>
